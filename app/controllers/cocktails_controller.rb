@@ -5,11 +5,19 @@ class CocktailsController < ApplicationController
 
   def new
     @cocktail = Cocktail.new
+    @dose = Dose.new
   end
 
   def create
-
+    @cocktail = Cocktail.create(name: params[:cocktail]["name"])
+    if @cocktail.persisted?
+      redirect_to cocktail_path(@cocktail)
+    else
+      render 'new'
+    end
   end
 
-
+  def show
+    @cocktail = Cocktail.find(params[:id])
+  end
 end
