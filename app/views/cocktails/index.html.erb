@@ -1,8 +1,22 @@
-<div class="text-center">
-  <h1 class="text-center">Cocktails list</h1>
-  <% @cocktails.each do |cocktail| %>
-    <p><%= link_to cocktail.name, cocktail_path(cocktail) %></p>
-  <% end %>
+<h1 class="text-center">Cocktails list</h1>
+<div class="container">
+  <div class="row">
+    <% Cocktail.all.each do |cocktail| %>
+      <div class="col-xs-12 col-sm-4">
+        <%= link_to cocktail_path(cocktail), class: "card-link" do %>
+          <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= cocktail.photo? ? cl_image_path(cocktail.photo.path) : 'http://placehold.it/350x150' %>')">
 
-  <%= link_to "Add cocktail", new_cocktail_path, class: "btn btn-primary text-center" %>
+            <div class="card-category">Popular</div>
+            <div class="card-description">
+              <h2><%= cocktail.name %></h2>
+              <p>Very cool stuff, useful and smart</p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+
+  <%# = link_to "Add cocktail", new_cocktail_path, class: "btn btn-primary text-center" %>

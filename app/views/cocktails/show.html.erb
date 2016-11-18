@@ -4,6 +4,14 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <% if @cocktail.photo? %>
+        <%= cl_image_tag @cocktail.photo.path, width: 200, height: 300, crop: :fill %>
+      <% else %>
+        <%= simple_form_for @cocktail do |f| %>
+          <%= f.input :photo, as: :attachinary %>
+          <%= f.submit %>
+        <% end %>
+      <% end %>
       <% if @cocktail.doses.count > 0 %>
         <table class="table table-hover">
         <% @cocktail.doses.each do |dose| %>
