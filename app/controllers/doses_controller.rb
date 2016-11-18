@@ -8,13 +8,12 @@ class DosesController < ApplicationController
   def create
     ingredient_id = params[:dose][:ingredient_id]
     @ingredient = Ingredient.find(ingredient_id) if ingredient_id != ""
-    @dose = Dose.new(description: params[:dose]["description"], cocktail: @cocktail, ingredient: @ingredient)
-
     @cocktail = Cocktail.find(params[:cocktail_id])
+    @dose = Dose.new(description: params[:dose]["description"], cocktail: @cocktail, ingredient: @ingredient)
     if @dose.save
       redirect_to cocktail_path(@cocktail)
     else
-      render 'new'
+      render 'cocktails/show', cocktail: @cocktail, dose: @dose
     end
   end
 

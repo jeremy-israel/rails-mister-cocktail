@@ -1,11 +1,29 @@
 <h1 class="text-center"><%= @cocktail.name %></h1>
 <div class="text-center">
-  <% @cocktail.doses.each do |dose| %>
-    <p><%= dose.description %>
-    <%= dose.ingredient.name %>
-    <%= link_to "Delete", cocktail_dose_path(@cocktail, dose), method: :delete, class: "btn btn-primary" %>
-    </p>
-  <% end %>
-  <p><%= link_to "Back to cocktails list", cocktails_path %> -
-  <%= link_to "Add an ingredient dose", new_cocktail_dose_path(@cocktail) %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <% if @cocktail.doses.count > 0 %>
+        <table class="table table-hover">
+        <% @cocktail.doses.each do |dose| %>
+         <% if dose.valid? %>
+            <tr>
+              <td><%= dose.description %><%= dose.ingredient.name %></td>
+              <td>
+                <%= link_to "Delete", cocktail_dose_path(@cocktail, dose), method: :delete, class: "btn btn-primary" %>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render 'doses/formadd_dose', cocktail: @cocktail, dose: @dose %>
+<%= link_to "Back to cocktails list", cocktails_path %>
+
+
 </div>
